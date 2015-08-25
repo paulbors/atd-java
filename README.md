@@ -1,5 +1,5 @@
 ## atd-java ##
-Java client for <a href="http://www.AfterTheDeadline.com/">After The Deadline (AtD)</a> spell and grammar checker.
+Java client for <a href="http://www.AfterTheDeadline.com/">After The Deadline (AtD)</a> spell, grammar, style and stats checker.
 
 ## Usage ##
 
