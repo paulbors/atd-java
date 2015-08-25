@@ -58,6 +58,12 @@ public class SpellChecker {
     /**
      * Construct a new atd-java {@link SpellChecker} using a custom AtD server and API key.
      *
+     * @param atdServerUrl  Required, The AtD server to connect and send queries to.
+     * @param apiKey        ID + 32 hex digits<br/><br/>Required, used to control server-side caching.<br/><br/>
+     *                      The API key is used as both a synchronous locking point (e.g., only one request/key is
+     *                      processed at a time) and to enable server-side caching of results and session information.
+     *                      This makes subsequent requests for the same key much faster.
+     *
      * @see <a href="http://www.AfterTheDeadline.com/api.slp">http://www.AfterTheDeadline.com/api.slp</a>
      */
     public SpellChecker(String atdServerUrl, String apiKey) {
@@ -78,15 +84,15 @@ public class SpellChecker {
     /**
      * Runs the given text through the AtD server and returns a list of misspelled words.
      *
-     * @param text          The raw text to submit via a POST to the AtD server.<br/>
-     *                      If needed, tt can be modified via {@link ISpellCheckerOptions#processChars(String)}
+     * @param data          The raw text or HTML (is stripped) to submit via a POST to the AtD server.<br/>
+     *                      If needed, it can be modified via {@link ISpellCheckerOptions#processChars(String)}
      * @return              List of misspelled words contained in the given string.
      * @throws IOException  In case of a problem or connection was aborted to the AtD server
      */
-    public List<String> spellErrors(String text) throws IOException {
+    public List<String> spellErrors(String data) throws IOException {
         List<Error> spellingErrors = new ArrayList<Error>();
 
-        Results results = queryServer(text);
+        Results results = queryServer(data);
         if(results.getError() != null) {
             for(Error error : results.getError()) {
                 if(error.getType().equalsIgnoreCase("spelling") && !options.ignoreWord(error.getString())) {
@@ -111,17 +117,17 @@ public class SpellChecker {
     /**
      * Runs the given text through the AtD server and returns its {@link Results}
      *
-     * @param text          The raw text to submit via a POST to the AtD server.<br/>
+     * @param data          The raw text or HTML (is stripped) to submit via a POST to the AtD server.<br/>
      *                      If needed, tt can be modified via {@link ISpellCheckerOptions#processChars(String)}
      * @return              The {@link Results} of the query to the AtD server
      * @throws IOException  In case of a problem or connection was aborted to the AtD server
      */
-    public Results queryServer(String text) throws IOException {
+    public Results queryServer(String data) throws IOException {
         HttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(atdServer);
         List <NameValuePair> nameValuePairs = new ArrayList <NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("key", apiKey));
-        text = options.processChars(text);
+        String text = options.processChars(data);
         nameValuePairs.add(new BasicNameValuePair("data", text));
         httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
         HttpResponse response = httpClient.execute(httpPost);

@@ -34,6 +34,11 @@ public class Error {
     private String url;
     @XStreamImplicit private List<Suggestions> suggestions = new ArrayList<Suggestions>();
 
+    /**
+     * grammar | spell | stats | style
+     *
+     * @return  String representing the type of error.
+     */
     public String getString() {
         return string;
     }
