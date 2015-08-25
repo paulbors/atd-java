@@ -14,6 +14,11 @@
  */
 package ws.bors.atd.xml;
 
+/**
+ * The AtD response <option /> XML element.
+ *
+ * @see <a href="http://www.AfterTheDeadline.com/api.slp">AtD API</a>
+ */
 public class Option {
     private String option;
 

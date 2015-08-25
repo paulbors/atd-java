@@ -19,7 +19,10 @@ Use the following dependencies in your Maven build:
 SpellChecker spellChecker = new SpellChecker();
 
 // Use a custom hosted AtD server
-SpellChecker spellChecker = new SpellChecker("http://YourAtD.Server.url/checkDocument", "YourAPI-key");
+SpellChecker spellChecker = new SpellChecker(
+    "http://YourAtD.Server.url/checkDocument",
+    "YourAPI-key"
+);
 
 // Change the behavior of the spellChecker
 spellChecker.setOptions(new ISpellCheckerOptions() {
@@ -39,12 +42,12 @@ For other AtD client libraries see <a href="http://www.AfterTheDeadline.com/deve
 
 ## Releasing Project ##
 1. Update POM Version(s) via <br/>
-``` mvn release:update-versions -DautoVersionSubmodules=true```
+``` mvn release:update-versions -DautoVersionSubmodules=true ```
 2. Run Maven build via (order matters as java docs and sources must first be generated than signed) <br/>
 ``` mvn clean license:format install javadoc:aggregate javadoc:javadoc javadoc:jar source:jar gpg:sign repository:bundle-create ```
 3. Check everything in and make a tag
 4. Upload bundle via https://oss.sonatype.org.
    If you upload file by file then for the pom.asc, enter "pom.asc" in the "extension" field
 5. Update POM Versions to new SNAPSHOT version via <br/>
-``` mvn release:update-versions -DautoVersionSubmodules=true```
+``` mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=X.Y.Z-SNAPSHOT ```
 6. Check everything in

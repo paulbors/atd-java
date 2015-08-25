@@ -20,6 +20,11 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The AtD response <results /> XML element.
+ *
+ * @see <a href="http://www.AfterTheDeadline.com/api.slp">AtD API</a>
+ */
 @XStreamAlias("results")
 public class Results {
     @XStreamImplicit private List<Error> error = new ArrayList<Error>();
