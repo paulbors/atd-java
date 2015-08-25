@@ -4,8 +4,7 @@ Java client for <a href="http://www.AfterTheDeadline.com/">After The Deadline (A
 ## Usage ##
 
 ### Maven coordinates ###
-Depending on what web framework you use, add one of the following dependencies to your Maven build:
-### Wicket 6.x ###
+Use the following dependencies in your Maven build:
 ```xml
 <dependency>
   <groupId>ws.bors</groupId>
