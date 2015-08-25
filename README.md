@@ -43,7 +43,7 @@ List<String> errors = spellChecker.spellErrors("hello world");
 
 For other AtD client libraries see <a href="http://www.AfterTheDeadline.com/development.slp">AtD's Developer's</a> site.
 
-## Releasing Project ##
+#### Releasing Project ####
 1. Update POM Version(s) via <br/>
 ``` mvn release:update-versions -DautoVersionSubmodules=true ```
 2. Run Maven build via (order matters as java docs and sources must first be generated than signed) <br/>
