@@ -32,7 +32,7 @@ spellChecker.setOptions(new ISpellCheckerOptions() {
     @Override boolean ignoreWord(String misspelledWord) { ... }
 });
 
-// Get all Error(s)
+// Get all Error(s) grammar | spell | stats | style
 Results results = spellChecker.queryServer(data);
 
 // Get a list of misspelled words
