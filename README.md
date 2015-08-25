@@ -4,7 +4,7 @@ Java client for <a href="http://www.AfterTheDeadline.com/">After The Deadline (A
 ## Usage ##
 
 ### Maven coordinates ###
-Use the following dependencies in your Maven build:
+Use the following coordinates in your Maven build:
 ```xml
 <dependency>
   <groupId>ws.bors</groupId>
@@ -26,11 +26,14 @@ SpellChecker spellChecker = new SpellChecker(
 
 // Change the behavior of the spellChecker
 spellChecker.setOptions(new ISpellCheckerOptions() {
-    // Your custom impl
+    // Preprocess text/html prior to POSTing it to the AtD server
+    @Override String processChars(String data) { ... }
+    // Decide if this error is to be ignored from the AtD server results
+    @Override boolean ignoreWord(String misspelledWord) { ... }
 });
 
 // Get all Error(s)
-Results results = spellChecker.queryServer(text);
+Results results = spellChecker.queryServer(data);
 
 // Get a list of misspelled words
 List<String> errors = spellChecker.spellErrors("hello world");
