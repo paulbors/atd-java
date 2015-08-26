@@ -13,7 +13,7 @@ Use the following coordinates in your Maven build:
 </dependency>
 ```
 
-### Defining a SpellChecker ###
+### Using the SpellChecker ###
 ```java
 // Use the default English AtD hosted server
 SpellChecker spellChecker = new SpellChecker();
@@ -39,9 +39,35 @@ Results results = spellChecker.queryServer(data);
 List<String> errors = spellChecker.spellErrors("hello world");
 ```
 
+### Multilanguage ###
+
+After the Deadline server provides 5 languages:
+
+* English (en, default)
+* French (fr)
+* German (de)
+* Spanish (es)
+* Portuguese (pt)
+
+If no language is set English is choosen by default. To set another language simply set it:
+```java
+// Use the default English AtD hosted server
+SpellChecker spellChecker = new SpellChecker();
+// Change the language to Spanish
+spellChecker.setLanguage(Language.SPANISH);
+```
+
 ### Other AtD client libraries ###
 
 For other AtD client libraries see <a href="http://www.AfterTheDeadline.com/development.slp">AtD's Developer's</a> site.
+
+## Contributing ##
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
 #### Releasing Project ####
 1. Update POM Version(s) via <br/>
@@ -49,8 +75,7 @@ For other AtD client libraries see <a href="http://www.AfterTheDeadline.com/deve
 2. Run Maven build via (order matters as java docs and sources must first be generated then signed) <br/>
 ``` mvn clean license:format install javadoc:aggregate javadoc:javadoc javadoc:jar source:jar gpg:sign repository:bundle-create ```
 3. Check everything in and make a tag
-4. Upload bundle via https://oss.sonatype.org.
-   If you upload file by file then for the pom.asc, enter "pom.asc" in the "extension" field
+4. Upload bundle via https://oss.sonatype.org
 5. Update POM Versions to new SNAPSHOT version via <br/>
 ``` mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=X.Y.Z-SNAPSHOT ```
 6. Check everything in
