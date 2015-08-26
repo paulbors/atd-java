@@ -16,6 +16,7 @@ package ws.bors.atd;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -29,6 +30,8 @@ import ws.bors.atd.xml.Error;
 import ws.bors.atd.xml.Results;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,17 +45,24 @@ import java.util.List;
  */
 public class SpellChecker {
     private ISpellCheckerOptions options;
-    private String atdServer = "http://Service.AfterTheDeadline.com/checkDocument";
+    private Language language = Language.ENGLISH;
+    private URI atdServer;
     private String apiKey;
 
     /**
      * Construct a new atd-java {@link SpellChecker} using the default English AtD server.
      *
+     * @throws RuntimeException for when a {@link URISyntaxException} occurs.
      * @see <a href="http://www.AfterTheDeadline.com/api.slp">http://www.AfterTheDeadline.com/api.slp</a>
      */
-    public SpellChecker() {
-        apiKey = "https://github.com/paulbors/atd-java?" + System.currentTimeMillis();
-        options = new DefaultSpellCheckerOptions();
+    public SpellChecker() throws RuntimeException {
+        try {
+            atdServer = new URI("http://" + Language.ENGLISH + ".Service.AfterTheDeadline.com/checkDocument");
+            apiKey = "https://github.com/paulbors/atd-java?" + System.currentTimeMillis();
+            options = new DefaultSpellCheckerOptions();
+        } catch(URISyntaxException urise) {
+            throw new RuntimeException(urise.getMessage(), urise);
+        }
     }
 
     /**
@@ -64,14 +74,58 @@ public class SpellChecker {
      *                      processed at a time) and to enable server-side caching of results and session information.
      *                      This makes subsequent requests for the same key much faster.
      *
+     * @throws RuntimeException for when a {@link URISyntaxException} occurs.
      * @see <a href="http://www.AfterTheDeadline.com/api.slp">http://www.AfterTheDeadline.com/api.slp</a>
      */
-    public SpellChecker(String atdServerUrl, String apiKey) {
+    public SpellChecker(String atdServerUrl, String apiKey) throws RuntimeException {
         this();
-        this.atdServer = atdServerUrl;
-        this.apiKey = apiKey;
+        try {
+            this.atdServer = new URI(atdServerUrl);
+            this.apiKey = apiKey;
+        } catch(URISyntaxException urise) {
+            throw new RuntimeException(urise.getMessage(), urise);
+        }
     }
 
+    /**
+     * Get the current {@link Language} in use.
+     *
+     * @return              {@link Language} in use.
+     */
+    public Language getLanguage() {
+        return language;
+    }
+    /**
+     * Change the dictionary {@link Language} to use.
+     *
+     * @param language       {@link Language} to check, default is {@link Language#ENGLISH}
+     * @throws RuntimeException for when a {@link URISyntaxException} occurs.
+     */
+    public void setLanguage(Language language) throws RuntimeException {
+        try {
+            this.language = language;
+            String domain = atdServer.getHost();
+            if(domain.toLowerCase().contains("service.afterthedeadline.com")) {
+                String[] parts = domain.split("\\.");
+                parts[0] = this.language.toString();
+                atdServer = new URI(
+                    atdServer.getScheme(),  atdServer.getUserInfo(), StringUtils.join(parts, "."),
+                    atdServer.getPort(),    atdServer.getPath(),     atdServer.getQuery(),      atdServer.getFragment()
+                );
+            }
+        } catch(URISyntaxException urise) {
+            throw new RuntimeException(urise.getMessage(), urise);
+        }
+    }
+
+    /**
+     * Get the current {@link DefaultSpellCheckerOptions} in use.
+     *
+     * @return              Current {@link ISpellCheckerOptions} in use.
+     */
+    public ISpellCheckerOptions getOptions() {
+        return this.options;
+    }
     /**
      * Override the {@link DefaultSpellCheckerOptions} with your custom {@link ISpellCheckerOptions}.
      *

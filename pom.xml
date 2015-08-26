@@ -8,7 +8,7 @@
     </parent>
     <groupId>ws.bors</groupId>
     <artifactId>atd</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>atd-java client</name>
     <description>Java client for After The Deadline (AtD) dot com spell and grammar checker</description>
@@ -37,28 +37,36 @@
         </developer>
     </developers>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javaVersion>1.6</javaVersion>
-        <mavenGpgPluginVersion>1.4</mavenGpgPluginVersion>
-        <mavenCompilerPluginVersion>3.3</mavenCompilerPluginVersion>
-        <mavenSurefirePluginVersion>2.18.1</mavenSurefirePluginVersion>
-        <mavenGpgPluginVersion>1.6</mavenGpgPluginVersion>
-        <meclipseLifecycleMappingVersion>1.0.0</meclipseLifecycleMappingVersion>
+        <commonsLang3Version>3.4</commonsLang3Version>
         <httpComponentsVersion>4.5</httpComponentsVersion>
+        <javaVersion>1.6</javaVersion>
+        <mavenCompilerPluginVersion>3.3</mavenCompilerPluginVersion>
+        <mavenGpgPluginVersion>1.4</mavenGpgPluginVersion>
+        <mavenGpgPluginVersion>1.6</mavenGpgPluginVersion>
+        <mavenSurefirePluginVersion>2.18.1</mavenSurefirePluginVersion>
+        <meclipseLifecycleMappingVersion>1.0.0</meclipseLifecycleMappingVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testngVersion>6.8.8</testngVersion>
         <xstreamVersion>1.4.8</xstreamVersion>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpComponentsVersion}</version>
-        </dependency>
+        <!-- Production Dependencies -->
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
             <version>${xstreamVersion}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commonsLang3Version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpComponentsVersion}</version>
+        </dependency>
+        <!-- Test Dependencies -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
