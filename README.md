@@ -9,7 +9,7 @@ Use the following coordinates in your Maven build:
 <dependency>
   <groupId>ws.bors</groupId>
   <artifactId>atd</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
