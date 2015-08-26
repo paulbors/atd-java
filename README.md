@@ -46,7 +46,7 @@ For other AtD client libraries see <a href="http://www.AfterTheDeadline.com/deve
 #### Releasing Project ####
 1. Update POM Version(s) via <br/>
 ``` mvn release:update-versions -DautoVersionSubmodules=true ```
-2. Run Maven build via (order matters as java docs and sources must first be generated than signed) <br/>
+2. Run Maven build via (order matters as java docs and sources must first be generated then signed) <br/>
 ``` mvn clean license:format install javadoc:aggregate javadoc:javadoc javadoc:jar source:jar gpg:sign repository:bundle-create ```
 3. Check everything in and make a tag
 4. Upload bundle via https://oss.sonatype.org.
