@@ -47,7 +47,7 @@
         <meclipseLifecycleMappingVersion>1.0.0</meclipseLifecycleMappingVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testngVersion>6.8.8</testngVersion>
-        <xstreamVersion>1.4.15</xstreamVersion>
+        <xstreamVersion>1.4.16</xstreamVersion>
     </properties>
     <dependencies>
         <!-- Production Dependencies -->
