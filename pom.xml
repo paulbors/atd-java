@@ -38,7 +38,7 @@
     </developers>
     <properties>
         <commonsLang3Version>3.4</commonsLang3Version>
-        <httpComponentsVersion>4.5</httpComponentsVersion>
+        <httpComponentsVersion>4.5.13</httpComponentsVersion>
         <javaVersion>1.6</javaVersion>
         <mavenCompilerPluginVersion>3.3</mavenCompilerPluginVersion>
         <mavenGpgPluginVersion>1.4</mavenGpgPluginVersion>
