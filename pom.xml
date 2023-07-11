@@ -46,7 +46,7 @@
         <mavenSurefirePluginVersion>2.18.1</mavenSurefirePluginVersion>
         <meclipseLifecycleMappingVersion>1.0.0</meclipseLifecycleMappingVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <testngVersion>[7.7.0,)</testngVersion>
+        <testngVersion>7.7.0</testngVersion>
         <xstreamVersion>1.4.20</xstreamVersion>
     </properties>
     <dependencies>
